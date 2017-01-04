@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin :0;
+            padding: 0;
+        }
+        #container{
+            width: 660px;
+            height: 510px;
+            margin: 0 auto;
+        }
+        #container img{
+            width: 200px;
+            height: 150px;
+            float: left;
+            margin: 10px;
+        }
+        #container img.collide {
+            border: 1px dotted red;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <img src="images/1.jpg" alt=""/>
+        <img src="images/2.jpg" alt=""/>
+        <img src="images/3.jpg" alt=""/>
+        <img src="images/4.jpg" alt=""/>
+        <img src="images/5.jpg" alt=""/>
+        <img src="images/6.jpg" alt=""/>
+        <img src="images/7.jpg" alt=""/>
+        <img src="images/8.jpg" alt=""/>
+        <img src="images/9.jpg" alt=""/>
+    </div>
+    <script src="jslib.js"></script>
+    <script>
+        var oContainer = document.getElementById('container');
+        var aImg = oContainer.getElementsByTagName('img');
+        var zIndex = 0;
+        var collide = [] ;
+        var nearElem = null;
+        for(var i=0;i<aImg.length;i++){
+            aImg[i].style.top = aImg[i].offsetTop + 'px';
+            aImg[i].style.left = aImg[i].offsetLeft + 'px';
+        }
+        for(var i=0;i<aImg.length;i++){
+            aImg[i].style.position = 'absolute';
+            aImg[i].style.margin = 0;
+            moveImg(aImg[i]);
+
+            aImg[i].pos={
+                left:aImg[i].offsetLeft,
+                top: aImg[i].offsetTop
+            }
+        }
+        function moveImg(elem){
+            elem.onmousedown = function(e){
+                e = e || window.event;
+                var top = e.clientY - elem.offsetTop;
+                var left = e.clientX - elem.offsetLeft;
+                document.onmousemove = function(e){
+                    e = e || window.event;
+                    var iTop = e.clientY - top ;
+                    var iLeft = e.clientX - left;
+                    elem.style.left = iLeft + 'px';
+                    elem.style.top = iTop + 'px';
+                    elem.style.zIndex = zIndex++;
+                    collide = [];
+                    for(var i=0;i<aImg.length;i++){
+                        if(aImg[i] == elem){
+                            continue;
+                        }
+                        var isCol = collideCheck(elem,aImg[i]);
+                        if(isCol){
+                            collide.push(aImg[i])
+                        }
+                        aImg[i].className = '';
+                    }
+                    if(collide.length>0){
+                        nearElem = nearest(elem);
+                        nearElem.className = 'collide';
+                    }else {
+                        collide = null;
+                    }
+                    return false;
+
+
+                }
+                document.onmouseup = function(){
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+//                    elem  nearElem  交换位置
+                    if(nearElem){
+                        animate(elem,nearElem.pos);
+                        animate(nearElem,elem.pos);
+                        var pos = nearElem.pos;
+                        nearElem.pos = elem.pos;
+                        elem.pos = pos;
+                        nearElem.className = '';
+                        nearElem = null;
+                    }else{
+                        animate(elem,elem.pos);
+                    }
+                }
+            }
+        }
+        document.onselectstart = function(){
+            return false;
+        }
+            function collideCheck(elem,target){
+                var elemL = elem.offsetLeft;
+                var elemR = elem.offsetLeft + elem.offsetWidth ;
+                var elemT = elem.offsetTop;
+                var elemB = elem.offsetTop + elem.offsetHeight;
+                var targetL = target.offsetLeft;
+                var targetR = target.offsetLeft + target.offsetWidth;
+                var targetT = target.offsetTop;
+                var targetB = target.offsetTop + target.offsetHeight;
+                if(elemL > targetR || elemR < targetL || elemT > targetB || elemB < targetT){
+                    return false;
+                }else {
+                    return true;
+                }
+            }
+        function nearest(elem){
+            var minDis = 9999;
+            var index = -1;
+            for(var i=0;i<collide.length;i++){
+                var x = collide[i].offsetLeft - elem.offsetLeft;
+                var y = collide[i].offsetTop - elem.offsetTop;
+                var dis = Math.sqrt(x*x+y*y);
+                if(dis < minDis){
+                    minDis = dis;
+                    index = i;
+                }
+            }
+            return collide[index];
+        }
+    </script>
+</body>
+</html>
+<!--//布局转换-->
+<!--//绑定拖拽-->
+<!--//检测碰撞，将所有碰撞元素存在collide数组-->
+<!--//找出距离最近的-->
+<!--//交换位置-->
