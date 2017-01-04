@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        #drag {
+            width: 200px;
+            height: 200px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="drag"></div>
+    <script>
+        var oDrag = document.getElementById('drag');
+        oDrag.onmousedown = function(e){
+            e = e || window.event;
+            var left = e.clientX - oDrag.offsetLeft;
+            var top = e.clientY - oDrag.offsetTop;
+
+            document.onmousemove = function(e){
+                e = e || window.event;
+                var ileft = e.clientX - left;
+                var itop = e.clientY - top;
+
+                if(ileft<0){
+                    ileft = 0;
+
+                }else if(ileft > document.documentElement.clientWidth - oDrag.offsetWidth){
+                    ileft = document.documentElement.clientWidth - oDrag.offsetWidth;
+
+                }
+                if(itop<0){
+                    itop = 0;
+
+                }else if(itop > document.documentElement.clientHeight - oDrag.offsetHeight ){
+                    itop = document.documentElement.clientHeight - oDrag.offsetHeight;
+
+                }
+
+
+
+                oDrag.style.left = ileft + 'px';
+                oDrag.style.top = itop + 'px';
+
+
+            };
+//            oDrag.onmouseup = function(){
+            document.onmouseup = function(){
+                document.onmousemove = null;
+            };
+
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        #container {
+            width: 500px;
+            height: 400px;
+            margin: 50px auto;
+            border: solid 1px #000000;
+            position: relative;
+            overflow: hidden;
+        }
+        #content {
+            width: 520px;
+            position: absolute;
+        }
+        #content li{
+            width: 120px;
+            height: 80px;
+            background: #000000;
+            color: #ffffff;
+            font-size: 40px;
+            text-align: center;
+            line-height: 80px;
+            float: left;
+            margin-right: 10px;
+        }
+        #arrow {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -125px;
+        }
+        #arrow span {
+            float: left;
+            width: 120px;
+            height: 30px;
+            background: gray;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="content">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </div>
+    <div id="arrow">
+        <span id="pre">&lt;&lt;</span>
+        <span id="next">&gt;&gt;</span>
+    </div>
+</div>
+<script>
+    var oContent = document.getElementById('content');
+    oContent.innerHTML = oContent.innerHTML + oContent.innerHTML;
+    var aLi = oContent.getElementsByTagName('li');
+    oContent.style.width = aLi.length * (aLi[0].offsetWidth + 10 ) + 'px';
+    var oPre = document.getElementById('pre');
+    var oNext = document.getElementById('next');
+    var speed = -2;
+    setInterval(function(){
+        if(oContent.offsetLeft < -oContent.offsetWidth/2){
+            oContent.style.left = 0;
+        }
+        if(oContent.offsetLeft > 0){
+            oContent.style.left = -oContent.offsetWidth/2 + 'px';
+        }
+            oContent.style.left = oContent.offsetLeft + speed + 'px';
+    },10  )
+    oNext.onmouseover = function(){
+        speed = 2;
+    };
+    oPre.onmouseover = function(){
+        speed = -2;
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>案例1.7.1滚动条</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            width: 400px;
+            height:  500px;
+            background: #cccccc;
+            overflow: hidden;
+            /*position: relative;*/
+
+        }
+        #content{
+            width: 380px;
+            background: gray;
+            float: left;
+            position: relative;
+        }
+        #scroll-bar {
+            width: 20px;
+            height: 500px;
+            background: #eeeeee;
+            float: left;
+            position: relative;
+
+        }
+        #scroll-btn{
+            width: 20px;
+            height: 20px;
+            background: #000000;
+            position: absolute;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="content">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+            啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</div>
+        <div id="scroll-bar">
+            <span id="scroll-btn"></span>
+        </div>
+
+    </div>
+    <script>
+        var oScrollBtn = document.getElementById('scroll-btn');
+        var oScrollBar = document.getElementById('scroll-bar');
+        var oContainer = document.getElementById('container');
+        var oContent = document.getElementById('content');
+        oScrollBtn.onmousedown = function(e){
+            e = e || window.event;
+            var top = e.clientY - oScrollBtn.offsetTop;
+
+            document.onmousemove = function(e){
+                e = e || window.event;
+                var itop = e.clientY - top;
+//                oScrollBtn.style.top = itop + 'px';
+                if(itop < 0){
+                    itop = 0;
+                }
+                if(itop > oScrollBar.offsetHeight - oScrollBtn.offsetHeight)
+                {
+                    itop = oScrollBar.offsetHeight - oScrollBtn.offsetHeight;
+
+                }
+                oScrollBtn.style.top = itop + 'px';
+
+                var scale = oScrollBtn.offsetTop/(oScrollBar.offsetHeight - oScrollBtn.offsetHeight);
+                var cTop = scale *( oContent.offsetHeight - oContainer.offsetHeight);
+                oContent.style.top = -cTop + 'px';
+                return false;
+
+            };
+            document.onmouseup = function(){
+                document.onmousemove = null;
+            };
+        };
+
+    </script>
+</body>
+</html>

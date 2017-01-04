@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        *{
+            margin: 0;
+        padding:0;}
+        ul{
+            list-style: none;
+        }
+        #container{
+            width: 400px;
+            height: 300px;
+            /*background: #cccccc;*/
+            margin: 50px  auto;
+
+        }
+        #container ul{
+            overflow: hidden;
+        }
+        #container li{
+            float: left;
+            width: 120px;
+            height: 30px;
+            background: #cccccc;
+           margin-right: 5px;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        #container li.selected{
+            background: green;
+
+        }
+        #content{
+            background-color: #cccccc;
+            height: 270px;
+            border-top: 1px solid #000000
+        ;
+        }
+
+
+    </style>
+</head>
+<body>
+       <div id="container">
+           <ul>
+               <li class="selected">111</li>
+               <li>222</li>
+               <li>333</li>
+           </ul>
+           <div id="content">
+               <ul>
+                   <li  class="selected" >aaa</li>
+                   <li>bbb</li>
+                   <li>ccc</li>
+               </ul>
+           </div>
+
+
+
+       </div>
+       <script>
+           var oContainer = document.getElementById('container');
+           var aLi = oContainer.getElementsByTagName('li');
+           var oContent = document.getElementById('content');
+           var data = ['aaa','bbb','ccc'];
+          oContent.innerHTML =data[0];
+           for(var i = 0; i<aLi.length;i++)
+           {
+               aLi[i].index = i;
+               aLi[i].onclick=function(){
+                   for(var j=0;j<aLi.length;j++){
+                       aLi[j].className=" ";
+                   }
+                   this.className = "selected";
+                   oContent.innerHTML = data[this.index];
+//                    arr[this.index].className = 'selected';
+               }
+           }
+
+
+       </script>
+</body>
+</html>

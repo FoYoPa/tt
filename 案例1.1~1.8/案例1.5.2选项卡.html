@@ -1,0 +1,83 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;}
+        ul{
+            list-style: none;
+        }
+        #container{
+            width: 400px;
+            height: 300px;
+            /*background: #cccccc;*/
+            margin: 50px  auto;
+
+        }
+        #container ul{
+            overflow: hidden;
+        }
+        #container li{
+            float: left;
+            width: 120px;
+            height: 30px;
+            background: #cccccc;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        #tab .selected{
+            background: green;
+            color: white;
+
+        }
+        #content{
+            background-color: #cccccc;
+            height: 270px;
+            border-top: 1px solid #000000;
+        }
+        #content div{
+            display: none;
+        }
+        #content .selected{
+            display: block;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li class="selected">111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+    <div id="content">
+        <div class="selected">1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+</div>
+<script>
+        var oContainer = document.getElementById("container");
+        var aLi = oContainer.getElementsByTagName("li");
+        var oContent = document.getElementById("content");
+        var aDiv = oContent.getElementsByTagName("div");
+        for(var i=0;i<aLi.length;i++){
+            aLi[i].index = i;
+            aLi[i].onclick = function(){
+                for(j=0;j<aLi.length;j++){
+                    aLi[j].className = "";
+                    aDiv[j].className="";
+                }
+                this.className = "selected";
+                aDiv[this.index].className = "selected";
+            }
+        }
+</script>
+</body>
+</html>
