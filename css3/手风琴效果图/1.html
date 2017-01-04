@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style: none;
+        }
+        #container{
+            width: 800px;
+            height: 300px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        li{
+            position: absolute;
+            top: 0;
+            transition: transform 2s ease;
+        }
+        img{
+            width: 600px;
+            height: 300px;
+
+
+        }
+        span{
+            width: 800px;
+            height: 40px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0.6);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <li><img src="img/1.jpg" alt=""/><span>001</span></li>
+        <li><img src="img/2.jpg" alt=""/><span>002</span></li>
+        <li><img src="img/3.jpg" alt=""/><span>003</span></li>
+        <li><img src="img/4.jpg" alt=""/><span>004</span></li>
+        <li><img src="img/5.jpg" alt=""/><span>005</span></li>
+    </div>
+    <script>
+        var aLi = document.getElementsByTagName('li');
+        for(var i=0;i<aLi.length;i++){
+            aLi[i].style.left = 160*i + 'px';
+            aLi[i].index = i;
+            aLi[i].onmouseover = function(){
+                var iNow = this.index;
+                for(var i=0;i<aLi.length;i++){
+                    if(i<=iNow){
+                        var x = 50*i-160*i;
+                        aLi[i].style.transform = "translateX("+x+"px)";
+                    }else{
+                        var x = (800-(aLi.length-i)*50)-160*i;
+                        aLi[i].style.transform = "translateX("+x+"px)";
+                    }
+                }
+            }
+            aLi[i].onmouseout = function(){
+                for(var i=0;i<aLi.length;i++){
+                    aLi[i].style.transform = '';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

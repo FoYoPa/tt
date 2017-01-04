@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #stage{
+            width: 1000px;
+            height: 400px;
+            background: #eeeeee;
+            margin: 50px auto;
+            overflow: hidden;
+            box-shadow: 0 0 3px 3px gray;
+            -webkit-perspective: 800px;
+            perspective-origin: center -40%;
+        }
+        #container{
+            width: 180px;
+            height: 100px;
+            margin: 100px auto;
+            position: relative;
+            -webkit-transform-style: preserve-3d;
+            -webkit-transition: transform 2s ease;
+        }
+        #container img{
+            width: 180px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            -webkit-transition: transform 2s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="stage">
+        <div id="container"></div>
+    </div>
+    <script>
+        var oContainer = document.getElementById('container');
+        var x = 69/Math.tan(20*Math.PI/180) + 70;
+        var idx = 0;
+        var html = '';
+        for(var i=0;i<9;i++){
+            html += "<img src='img/"+(i+1)+".jpg'/>"
+        }
+        oContainer.innerHTML = html;
+        oContainer.onclick = function(){
+            idx++;
+            oContainer.style.transform = "rotateY("+idx*40+"deg)";
+        }
+        var aImg = oContainer.getElementsByTagName('img');
+//        var index = 9;
+//        var timer = setInterval(function(){
+//                    index--;
+//                    if(index<0){
+//                        clearInterval(timer)
+//                    }else{
+//                        aImg[index].style.WebkitTransform = 'rotateY('+(-index*40)+'deg) translateZ('+x+'px)';
+//                    }
+//
+//                },100)
+         for(var i=0;i<9;i++){
+             (function(index){
+                 setTimeout(function(){
+                     var j = 8-index;
+                     aImg[j].style.WebkitTransform = 'rotateY('+(-j*40)+'deg) translateZ('+x+'px)';
+                 },100*(i+1))
+             })(i)
+
+         }
+
+    </script>
+</body>
+</html>

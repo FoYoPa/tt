@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #000000;
+            -webkit-perspective:800px
+        }
+        #container{
+            width: 200px;
+            height: 200px;
+            margin: 200px auto;
+            position: relative;
+            -webkit-transform-style: preserve-3d;
+            animation: run 2s linear infinite;
+        }
+        @-webkit-keyframes run {
+            0%{
+
+            }
+            100%{
+                -webkit-transform:rotateY(-360deg);
+            }
+
+        }
+        #container div{
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff;
+            opacity: 0.6;
+            font-size: 50px;
+            text-align: center;
+            line-height: 200px;
+        }
+        #one{
+            -webkit-transform:rotateX(90deg) translateZ(100px) ;
+        }
+        #three{
+            -webkit-transform: rotateY(90deg) translateZ(100px);
+        }
+        #five{
+            -webkit-transform: rotateY(-90deg) translateZ(100px);
+        }
+        #six{
+            -webkit-transform: rotateX(-90deg) translateZ(100px);
+        }
+        #four{
+            -webkit-transform: rotateY(180deg) translateZ(100px);
+        }
+        #two{
+            -webkit-transform: translateZ(100px);
+            z-index: 2;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="one">1</div>
+        <div id="two">2</div>
+        <div id="three">3</div>
+        <div id="four">4</div>
+        <div id="five">5</div>
+        <div id="six">6</div>
+    </div>
+</body>
+</html>

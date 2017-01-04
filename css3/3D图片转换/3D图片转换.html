@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0 ;
+            padding: 0;
+
+        }
+        #container{
+            width: 600px;
+            height: 400px;
+            margin: 100px auto;
+            position: relative;
+            -webkit-perspective: 800px;
+        }
+        #img img{
+            width: 600px;
+            height: 400px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            -webkit-transform: rotateX(180deg);
+            -webkit-transform-origin: center 400px;
+            opacity: 0;
+        }
+        span{
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            background: gray;
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            color: #ffffff;
+            font-size: 40px;
+            box-shadow: 0 0 3px 2px lightgreen;
+            -webkit-text-stroke: 1px #000;
+            cursor: pointer;
+        }
+        #prev{
+            left: -100px;
+        }
+        #next{
+            right: -100px;
+        }
+        .show{
+            animation: show 3s ease forwards;
+        }
+        @-webkit-keyframes show {
+            0%{
+
+            }
+            50%{
+                -webkit-transform: rotateX(-20deg);
+            }
+            60%{
+                -webkit-transform: rotateX(20deg);
+            }
+            70%{
+                -webkit-transform: rotateX(-10deg);
+            }
+            80%{
+                -webkit-transform: rotateX(10deg);
+            }
+            90%{
+                -webkit-transform: rotateX(-5deg);
+            }
+            95%{
+                -webkit-transform: rotateX(5deg);
+            }
+            100%{
+                -webkit-transform: rotateX(0);
+                opacity: 1;
+            }
+        }
+        .hide{
+            -webkit-animation: hide 3s ease;
+        }
+        @-webkit-keyframes hide{
+            0%{
+                -webkit-transform: rotateX(0);
+                opacity: 1;
+            }
+            100%{
+                -webkit-transform: rotateX(-180deg);
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="img">
+            <img  class="show" src="img/1.jpg" alt=""/>
+            <img src="img/2.jpg" alt=""/>
+            <img src="img/3.jpg" alt=""/>
+            <img src="img/4.jpg" alt=""/>
+            <span id="prev">
+                &lt;
+            </span>
+            <span id="next">
+                &gt;
+            </span>
+
+        </div>
+    </div>
+    <script>
+        var oContainer = document.getElementById('container');
+        var aImg = oContainer.getElementsByTagName('img');
+        var oPrev = document.getElementById('prev');
+        var oNext = document.getElementById('next');
+        var iNow = 0;
+        oNext.onclick = function(){
+            aImg[iNow].className = 'hide';
+            iNow++;
+            if(iNow == aImg.length){
+                iNow = 0;
+            }
+            changeImg(iNow);
+        };
+        oPrev.onclick = function(){
+            aImg[iNow].className = 'hide';
+            iNow--;
+            if(iNow == -1){
+                iNow = aImg.length-1;
+            }
+            changeImg(iNow);
+        }
+        function changeImg(aa){
+            for(var i=0;i<aImg.length;i++){
+                aImg[iNow].className = "show";
+            }
+        }
+    </script>
+</body>
+</html>
