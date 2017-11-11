@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		//window.RequestFileSystem(type,size,successCallback,errorCallback)
+		//首先我们需要通过请求一个LocalFile对象来得到HTML5文件系统的访问
+		window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+		var fs = null;
+		var msg = '';
+		if(window.requestFileSystem){
+			initFs();
+		}
+		function initFs(){
+			window.requestFileSystem(window.TEMPORARY,1024*10,function(filesystem){
+				fs = filesystem;
+				document.getElementById('result').innerHTML="当前浏览器可以操作";
+			},errorHander)
+		}
+		function errorHander(e){
+			switch (e.code){
+				case FileError.NOT_FOUND_ERR:
+					msg="未找到文件或目录";
+					break;
+				case FileError.NOT_READABLE_ERR:
+					msg="未能读取文件";
+					break;
+				default :
+					msg = '其他错误';
+					break;
+			}
+			document.getElementById('result').innerHTML = "当前发生的错误" + msg; 
+		}
+	</script>
+</head>
+<body>
+	<output id="result"></output>
+</body>
+</html>
